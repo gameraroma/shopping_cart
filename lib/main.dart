@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_cart/shopping_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -31,13 +32,12 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-        body: SnackBarPage()
-    );
+        body: ChildHomePage());
   }
 }
 
-class SnackBarPage extends StatelessWidget {
-  List<String> _menuList = ["ซื้อของ", "โปรโมชั่น", "กรุณาอ่าน", "ติดต่อ"]
+class ChildHomePage extends StatelessWidget {
+  List<String> _menuList = ["ซื้อของ", "โปรโมชั่น", "กรุณาอ่าน", "ติดต่อ"];
 
   @override
   Widget build(BuildContext context) {
@@ -47,17 +47,20 @@ class SnackBarPage extends StatelessWidget {
         children: _menuList.map((String menuItem) {
           return FlatButton(
             onPressed: () {
-              Scaffold.of(context).showSnackBar(SnackBar(
-                content: Text(menuItem),
-              ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  if (menuItem == _menuList[0]) {
+                    return ShoppingPage();
+                  }
+                  return ShoppingPage();
+                }),
+              );
             },
             child: Center(
               child: Text(
                 menuItem,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headline,
+                style: Theme.of(context).textTheme.headline,
               ),
             ),
           );
@@ -66,4 +69,3 @@ class SnackBarPage extends StatelessWidget {
     );
   }
 }
-
